@@ -18,17 +18,15 @@ import * as Joi from 'joi';
         PORT: Joi.number().required()
       })
     }),
-    
     JwtModule.registerAsync({
-    useFactory: (configService: ConfigService) => ({
-      secret: configService.get<string>('JWT_SECRET'),
-      signOptions: {
-        expiresIn: configService.get('JWT_EXPIRES_IN') + "s",
-      },
-      inject: [ConfigService],
-
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: configService.get<string>('JWT_EXPIRES_IN')+"s" }
+      }),
+      inject: [ConfigService]
     })
-  }),
+    
    ],
   controllers: [AuthController],
   providers: [AuthService],
