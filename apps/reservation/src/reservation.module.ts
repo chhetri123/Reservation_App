@@ -32,7 +32,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     }),
     ClientsModule.registerAsync([
       {
-        imports: [ConfigModule],
         name: AUTH_SERVICE,
         useFactory: async (configService: ConfigService) => ({
           transport: Transport.TCP,
