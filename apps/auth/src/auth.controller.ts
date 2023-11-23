@@ -26,10 +26,9 @@ export class AuthController {
     response.redirect('/');
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @MessagePattern('authenticate')
   async authenticate(@Payload() data: any) {
-    console.log(data);
     return data;
   }
 }
