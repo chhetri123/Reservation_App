@@ -3,11 +3,11 @@ import { PaymentsController } from './payments.controller';
 import { PaymentsService } from './payments.service';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
-import { LoggerModule } from 'nestjs-pino';
+import { LoggerModule } from '@app/common';
 
 @Module({
   imports: [
-    LoggerModule.forRoot(),
+    LoggerModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
