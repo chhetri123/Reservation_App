@@ -1,12 +1,12 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UsersService } from './users.service';
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UsersService } from "./users.service";
 
-import { CurrentUser } from '@app/common';
-import { UserDocument } from './models/user.schema';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { CurrentUser } from "@app/common";
+import { UserDocument } from "./models/user.schema";
+import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 
-@Controller('users')
+@Controller("users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Post()
@@ -18,8 +18,5 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   async getUsers(@CurrentUser() user: UserDocument) {
     return user;
-
-
-}
-
+  }
 }

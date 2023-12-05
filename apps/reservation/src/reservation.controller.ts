@@ -7,13 +7,13 @@ import {
   Param,
   Delete,
   UseGuards,
-} from '@nestjs/common';
-import { ReservationService } from './reservation.service';
-import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
-import { CurrentUser, JwtAuthGuard, UserDto } from '@app/common';
+} from "@nestjs/common";
+import { ReservationService } from "./reservation.service";
+import { CreateReservationDto } from "./dto/create-reservation.dto";
+import { UpdateReservationDto } from "./dto/update-reservation.dto";
+import { CurrentUser, JwtAuthGuard, UserDto } from "@app/common";
 
-@Controller('reservations')
+@Controller("reservations")
 export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
@@ -21,7 +21,7 @@ export class ReservationController {
   @Post()
   async create(
     @Body() createReservationDto: CreateReservationDto,
-    @CurrentUser() user: UserDto,
+    @CurrentUser() user: UserDto
   ) {
     return this.reservationService.create(createReservationDto, user);
   }
@@ -31,21 +31,23 @@ export class ReservationController {
     return this.reservationService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @Get(":id")
+  async findOne(@Param("id") id: string) {
     return this.reservationService.findOne(id);
   }
 
-  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @Patch(":id")
   async update(
-    @Param('id') id: string,
-    @Body() updateReservationDto: UpdateReservationDto,
+    @Param("id") id: string,
+    @Body() updateReservationDto: UpdateReservationDto
   ) {
     return this.reservationService.update(id, updateReservationDto);
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
+  @UseGuards(JwtAuthGuard)
+  @Delete(":id")
+  async remove(@Param("id") id: string) {
     return this.reservationService.remove(id);
   }
 }
